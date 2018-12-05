@@ -4,7 +4,7 @@
 
 <!--<script src="@/js/libs/dat.gui.min.js"></script> -->
 <script>
-import THREE from "three.js";
+// import THREE from "three.js";
 // import Stats from "../js/libs/stats.min.js";
 // import OrbitControls from "../js/controls/OrbitControls.js";
 // import {dat} from "@/js/libs/dat.gui.min.js";
@@ -22,7 +22,9 @@ export default {
       controls: null
     };
   },
-  created() {},
+  created() {
+    this.draw();
+  },
   methods: {
     initRender() {
       this.renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -70,28 +72,28 @@ export default {
       };
       this.gui = new dat.GUI();
 
-      let position = gui.addFolder("position");
+      let position = this.gui.addFolder("position");
       position.add(this.setting, "positionX", -30, 30).listen();
       position.add(this.setting, "positionY", -30, 30).listen();
       position.add(this.setting, "positionZ", -30, 30).listen();
 
-      let scale = gui.addFolder("scale");
+      let scale = this.gui.addFolder("scale");
       scale.add(this.setting, "scaleX", 0.01, 5);
       scale.add(this.setting, "scaleY", 0.01, 5);
       scale.add(this.setting, "scaleZ", 0.01, 5);
 
-      let rotation = gui.addFolder("rotation");
+      let rotation = this.gui.addFolder("rotation");
       rotation.add(this.setting, "rotationX", -2 * Math.PI, 2 * Math.PI);
       rotation.add(this.setting, "rotationY", -2 * Math.PI, 2 * Math.PI);
       rotation.add(this.setting, "rotationZ", -2 * Math.PI, 2 * Math.PI);
 
-      let translate = gui.addFolder("translate");
+      let translate = this.gui.addFolder("translate");
       translate.add(this.setting, "translateX", -5.5);
       translate.add(this.setting, "translateY", -5.5);
       translate.add(this.setting, "translateZ", -5.5);
       translate.add(this.setting, "translate", -5.5);
 
-      gui.add(this.setting, "visible");
+      this.gui.add(this.setting, "visible");
     },
     initLight() {
       this.scene.add(new THREE.AmbientLight(0x444));
@@ -118,7 +120,7 @@ export default {
       plane.receiveShadow = true;
       this.scene.add(plane);
     },
-    initStatus() {
+    initStats() {
       this.stats = new Stats();
       document.body.appendChild(this.stats.dom);
     },
@@ -170,6 +172,7 @@ export default {
       requestAnimationFrame(this.animate);
     },
     draw() {
+      this.initStats();
       this.initScene();
       this.initRender();
       this.initGUI();

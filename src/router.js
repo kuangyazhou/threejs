@@ -77,5 +77,10 @@ export default new Router({
       name: "gui",
       component: () => import("./views/datagui.vue")
     },
+    {
+      path: "/mesh",
+      name: "mesh",
+      component: () => import("./views/mesh.vue")
+    }
   ]
 });
