@@ -81,6 +81,11 @@ export default new Router({
       path: "/mesh",
       name: "mesh",
       component: () => import("./views/mesh.vue")
+    },
+    {
+      path: "/light",
+      name: "light",
+      component: () => import("./views/ambientlight.vue")
     }
   ]
 });

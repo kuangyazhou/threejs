@@ -44,6 +44,9 @@ export default {
     },
     initScene() {
       this.scene = new THREE.Scene();
+      this.scene.overrideMaterial = new THREE.MeshStandardMaterial({
+        color: 0x00ffff
+      });
     },
     initGUI() {
       this.setting = {
@@ -96,8 +99,8 @@ export default {
       this.gui.add(this.setting, "visible");
     },
     initLight() {
-      this.scene.add(new THREE.AmbientLight(0x444));
-      this.light = new THREE.PointLight(0xfff);
+      this.scene.add(new THREE.AmbientLight(0x444444));
+      this.light = new THREE.PointLight(0xffffff);
       this.light.position.set(15, 30, 10);
       this.light.castShadow = true;
       this.scene.add(this.light);
@@ -115,7 +118,9 @@ export default {
       let planeMaterial = new THREE.MeshStandardMaterial({ color: 0xaaaaaa });
       let plane = new THREE.Mesh(planeGeometry, planeMaterial);
       plane.position.x = -0.5 * Math.PI;
-      plane.position.y = -0;
+      // plane.position.y = -0;
+      plane.position.y = 10;
+      plane.position.z = -10;
 
       plane.receiveShadow = true;
       this.scene.add(plane);

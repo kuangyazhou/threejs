@@ -23,6 +23,10 @@ html {
   width: 100%;
   height: 100%;
 }
+html,
+body {
+  margin: 0;
+}
 #nav {
   /* padding: 30px; */
 }
