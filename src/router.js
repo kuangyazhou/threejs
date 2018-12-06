@@ -86,6 +86,11 @@ export default new Router({
       path: "/light",
       name: "light",
       component: () => import("./views/ambientlight.vue")
+    },
+    {
+      path: "/spot",
+      name: "spot",
+      component: () => import("./views/spotlight.vue")
     }
   ]
 });
