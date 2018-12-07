@@ -107,7 +107,6 @@ export default {
     initGUI() {},
     animate() {
       let delta = this.clock.getDelta();
-      // console.log(new THREE.Clock());
       this.render();
       this.stats.update();
       this.controls.update(delta);

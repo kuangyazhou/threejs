@@ -96,6 +96,11 @@ export default new Router({
       path: "/fly",
       name: "fly",
       component: () => import("./views/flycamera.vue")
+    },
+    {
+      path: "/attr",
+      name: "attr",
+      component: () => import("./views/meshattr.vue")
     }
   ]
 });
