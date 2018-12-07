@@ -109,9 +109,9 @@ export default {
       //是否自动旋转
       this.controls.autoRotate = false;
       //设置相机距离原点的最远距离
-      this.controls.minDistance = 50;
+      this.controls.minDistance = 5;
       //设置相机距离原点的最远距离
-      this.controls.maxDistance = 200;
+      this.controls.maxDistance = 2000;
       //是否开启右键拖拽
       this.controls.enablePan = true;
     },
@@ -171,12 +171,9 @@ export default {
         switch (e) {
           case "plane":
             this.spotLight.target = this.plane;
-
             break;
-
           case "cube":
             this.spotLight.target = this.cube;
-
             break;
         }
       });

@@ -27,9 +27,9 @@ html,
 body {
   margin: 0;
 }
-#nav {
-  /* padding: 30px; */
-}
+/* #nav { */
+/* padding: 30px; */
+/* } */
 
 #nav a {
   font-weight: bold;

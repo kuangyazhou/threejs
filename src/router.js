@@ -91,6 +91,11 @@ export default new Router({
       path: "/spot",
       name: "spot",
       component: () => import("./views/spotlight.vue")
+    },
+    {
+      path: "/fly",
+      name: "fly",
+      component: () => import("./views/flycamera.vue")
     }
   ]
 });
