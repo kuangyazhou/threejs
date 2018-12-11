@@ -112,5 +112,10 @@ export default new Router({
       name: "sprite",
       component: () => import("./views/sprite.vue")
     },
+    {
+      path: "/high",
+      name: "high",
+      component: () => import("./views/highgeo.vue")
+    }
   ]
 });
