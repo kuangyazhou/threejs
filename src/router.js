@@ -101,6 +101,16 @@ export default new Router({
       path: "/attr",
       name: "attr",
       component: () => import("./views/meshattr.vue")
-    }
+    },
+    {
+      path: "/shader",
+      name: "shader",
+      component: () => import("./views/shader.vue")
+    },
+    {
+      path: "/sprite",
+      name: "sprite",
+      component: () => import("./views/sprite.vue")
+    },
   ]
 });
