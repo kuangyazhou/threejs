@@ -10,7 +10,8 @@ export default {
       scene: null,
       camera: null,
       ambientLight: null,
-      controls: null
+      controls: null,
+      group: null
     };
   },
   created() {
@@ -37,7 +38,7 @@ export default {
         1,
         10000
       );
-      this.camera.position.set(200, 200, 200);
+      this.camera.position.set(50, 50, 50);
       this.camera.lookAt(new THREE.Vector3(0, 0, 0));
 
       this.ambientLight = new THREE.AmbientLight(0x404040);
@@ -94,8 +95,41 @@ export default {
         }
       };
       this.controls.redraw();
+
+      this.group = new THREE.Object3D();
+
+      let sphereGeometry = new THREE.SphereGeometry(5, 200, 200);
+      let sphereMaterial = new THREE.MeshLambertMaterial({ color: 0xaaaaaa });
+      let sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+      sphere.position.x = -5;
+      sphere.position.y = 5;
+
+      let cubeGeometry = new THREE.CubeGeometry(10, 10, 8);
+      let cubeMaterial = new THREE.MeshLambertMaterial({ color: 0x00ffff });
+      let cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+      cube.position.x = 15;
+      cube.position.y = 5;
+      cube.position.z = -5;
+
+      this.group.add(sphere);
+      this.group.add(cube);
+
+      let planeGeometry = new THREE.PlaneGeometry(100, 100);
+      let planeMaterial = new THREE.MeshStandardMaterial({ color: 0xaaaaaa });
+      let plane = new THREE.Mesh(planeGeometry, planeMaterial);
+      plane.rotation.x = -0.5 * Math.PI;
+      plane.position.y = -0;
+      //告诉底部平面需要接收阴影
+      plane.receiveShadow = true;
+      this.scene.add(plane);
+      this.scene.add(this.group);
     },
     render() {
+      // console.log(this.scene.toJSON());
+      let step = 0.02;
+      this.group.rotation.x += step;
+      this.group.rotation.y += step;
+      this.group.rotation.zs += step;
       this.renderer.render(this.scene, this.camera);
       // this.controls.update();
       requestAnimationFrame(this.render);
