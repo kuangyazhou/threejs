@@ -37,7 +37,7 @@ export default {
         1,
         10000
       );
-      this.camera.position.set(0, 4, 5);
+      this.camera.position.set(5, 5, 5);
       this.camera.lookAt(new THREE.Vector3(0, 0, 0));
 
       this.ambientLight = new THREE.AmbientLight(0x444444);
@@ -56,7 +56,7 @@ export default {
       //controls.dampingFactor = 0.25;
       this.controls.enableZoom = true;
       this.controls.autoRotate = false;
-      this.controls.minDistance = 20;
+      this.controls.minDistance = 5;
       this.controls.maxDistance = 10000;
       this.controls.enablePan = true;
 
@@ -66,13 +66,12 @@ export default {
     },
     initModel() {
       let loader = new THREE.ObjectLoader();
-      loader.load(
-        // "https://www.wjceo.com/lib/models/json/misc_chair01.json",
-        chairData,
-        e => {
-          this.scene.add(e);
-        }
-      );
+      // loader.load("http://localhost:2333/api/chair", e => {
+      //   this.scene.add(e);
+      // });
+      loader.load("/lib/models/json/misc_chair01.json", e => {
+        this.scene.add(e);
+      });
     },
     render() {
       this.controls.update();
