@@ -116,6 +116,11 @@ export default new Router({
       path: "/high",
       name: "high",
       component: () => import("./views/highgeo.vue")
+    },
+    {
+      path: "/chair",
+      name: "chair",
+      component: () => import("./views/chair.vue")
     }
   ]
 });
