@@ -5,8 +5,8 @@
 </template>
 
 <script>
-import THREE from "three.js";
-import WEBGL from "../js/WebGL";
+// import THREE from "three.js";
+// import WEBGL from "../js/WebGL";
 export default {
   created() {
     this.init();

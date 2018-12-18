@@ -118,11 +118,11 @@
 //     }
 //   };
 // };
-import THREE from "three.js";
+// import THREE from "three.js";
 // require("../js/WebGL.js");
-import WEBGL from "../js/WebGL.js";
+// import WEBGL from "../js/WebGL.js";
 // require("../js/libs/stats.min.js");
-import Stats from "../js/libs/stats.min.js";
+// import Stats from "../js/libs/stats.min.js";
 export default {
   mounted() {
     if (WEBGL.isWebGLAvailable() === false) {

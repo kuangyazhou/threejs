@@ -4,7 +4,7 @@
   </div>
 </template>
 <script>
-import THREE from 'three.js';
+// import THREE from 'three.js';
 export default {
   mounted(){
     var scene = new THREE.Scene();

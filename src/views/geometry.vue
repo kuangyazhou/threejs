@@ -2,7 +2,7 @@
   <div></div>
 </template>
 <script>
-import THREE from "three.js";
+// import THREE from "three.js";
 export default {
   data() {
     return {

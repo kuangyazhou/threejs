@@ -5,9 +5,8 @@
   </div>
 </template>
 
-<script src="@/js/libs/stats.min.js"></script>
 <script>
-import THREE from "three.js";
+// import THREE from "three.js";
 // import Stats from "@/js/libs/stats.min.js";
 // import {dat} from "@/js/libs/dat.gui.min.js";
 // require('@/js/libs/stats.min.js');

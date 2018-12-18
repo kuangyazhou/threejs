@@ -3,10 +3,10 @@
 </template>
 
 <script>
-import THREE from "three.js";
+// import THREE from "three.js";
 
-import ConvexGeometry from "@/js/libs/ConvexGeometry.js";
-import ParametricGeometries from "@/js/libs/ParametricGeometries.js";
+// import ConvexGeometry from "@/js/libs/ConvexGeometry.js";
+// import ParametricGeometries from "@/js/libs/ParametricGeometries.js";
 export default {
   created() {},
   mounted() {
