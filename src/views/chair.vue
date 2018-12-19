@@ -65,6 +65,7 @@ export default {
       this.scene.add(helper);
     },
     initModel() {
+      //json loader
       let loader = new THREE.ObjectLoader();
       // loader.load("http://localhost:2333/api/chair", e => {
       //   this.scene.add(e);
@@ -72,8 +73,27 @@ export default {
       loader.load("/lib/models/json/misc_chair01.json", e => {
         this.scene.add(e);
       });
+
+      //obj loader
+      let obj = new THREE.OBJLoader();
+      obj.load("/lib/assets/models/pinecone.obj", e => {
+        console.log(e);
+        let material = new THREE.MeshLambertMaterial({ color: 0x5c3a21 });
+        e.children.forEach(item => {
+          item.material = material;
+          item.geometry.computeFaceNormals();
+          item.geometry.computeVertexNormals();
+        });
+        //模型放大一百倍
+        // e.scale.set(50, 50, 50);
+        // e.position.set(100, 100, 100);
+        this.scene.add(e);
+      });
     },
     render() {
+      let step = 0.02;
+      this.camera.rotation.z -= step;
+      this.camera.position.x += step;
       this.controls.update();
       requestAnimationFrame(this.render);
       this.renderer.render(this.scene, this.camera);
