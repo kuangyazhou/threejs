@@ -3,7 +3,7 @@
 </template>
 <script>
 // import chairData from "../assets/chair.json";
-const chairData = require("../assets/chair.json");
+// const chairData = require("../assets/chair.json");
 export default {
   data() {
     return {
@@ -44,7 +44,7 @@ export default {
       this.scene.add(this.ambientLight);
       let light = new THREE.DirectionalLight(0xffffff);
 
-      light.position.set(1, 1, 1);
+      light.position.set(8, 8, 8);
 
       this.scene.add(light);
 
@@ -77,7 +77,7 @@ export default {
       //obj loader
       let obj = new THREE.OBJLoader();
       obj.load("/lib/assets/models/pinecone.obj", e => {
-        console.log(e);
+        // console.log(e);
         let material = new THREE.MeshLambertMaterial({ color: 0x5c3a21 });
         e.children.forEach(item => {
           item.material = material;
@@ -85,15 +85,15 @@ export default {
           item.geometry.computeVertexNormals();
         });
         //模型放大一百倍
-        // e.scale.set(50, 50, 50);
-        // e.position.set(100, 100, 100);
+        // e.scale.set(100, 100, 100);
+        e.position.set(0, 1, 1);
         this.scene.add(e);
       });
     },
     render() {
       let step = 0.02;
-      this.camera.rotation.z -= step;
-      this.camera.position.x += step;
+      // this.camera.rotation.z -= step;
+      // this.camera.position.x += step;
       this.controls.update();
       requestAnimationFrame(this.render);
       this.renderer.render(this.scene, this.camera);
