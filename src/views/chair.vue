@@ -14,6 +14,7 @@ export default {
     };
   },
   created() {
+    // console.log(THREE);
     this.draw();
   },
   methods: {

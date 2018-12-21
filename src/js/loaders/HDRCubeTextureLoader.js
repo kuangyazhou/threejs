@@ -147,11 +147,11 @@ THREE.HDRCubeTextureLoader.prototype.load = function ( type, urls, onLoad, onPro
 
 			}
 
-			if ( texData.image !== undefined ) {
+			if ( undefined !== texData.image ) {
 
 				texture[ i ].images = texData.image;
 
-			} else if ( texData.data !== undefined ) {
+			} else if ( undefined !== texData.data ) {
 
 				var dataTexture = new THREE.DataTexture( texData.data, texData.width, texData.height );
 				dataTexture.format = texture.format;

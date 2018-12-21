@@ -1,3 +1,4 @@
+const webpack = require("webpack");
 module.exports = {
   lintOnSave: true,
   devServer: {
@@ -9,6 +10,11 @@ module.exports = {
         //   "": ""
         // }
       }
-    }
+    },
+    // plugins: [
+    //   new webpack.ProvidePlugin({
+    //     THREE: "three"
+    //   })
+    // ]
   }
 };

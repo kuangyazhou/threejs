@@ -626,7 +626,7 @@ THREE.VRMLLoader.prototype = {
 								parent.geometry = defines[ defineKey ].clone();
 
 								// the solid property is not cloned with clone(), is only needed for VRML loading, so we need to transfer it
-								if ( defines[ defineKey ].solid !== undefined && defines[ defineKey ].solid === false ) {
+								if ( undefined !== defines[ defineKey ].solid && defines[ defineKey ].solid === false ) {
 
 									parent.geometry.solid = false;
 									parent.material.side = THREE.DoubleSide;
@@ -1067,7 +1067,7 @@ THREE.VRMLLoader.prototype = {
 
 							positions = newPositions;
 							normals = newNormals;
-							colors = newColors;
+							color = newColors;
 							uvs = newUvs;
 
 							geometry.setIndex( newIndexes );

@@ -23,30 +23,15 @@ THREE.LegacyGLTFLoader = ( function () {
 
 			var scope = this;
 
-			var resourcePath;
-
-			if ( this.resourcePath !== undefined ) {
-
-				resourcePath = this.resourcePath;
-
-			} else if ( this.path !== undefined ) {
-
-				resourcePath = this.path;
-
-			} else {
-
-				resourcePath = THREE.LoaderUtils.extractUrlBase( url );
-
-			}
+			var path = this.path && ( typeof this.path === "string" ) ? this.path : THREE.LoaderUtils.extractUrlBase( url );
 
 			var loader = new THREE.FileLoader( scope.manager );
 
-			loader.setPath( this.path );
 			loader.setResponseType( 'arraybuffer' );
 
 			loader.load( url, function ( data ) {
 
-				scope.parse( data, resourcePath, onLoad );
+				scope.parse( data, path, onLoad );
 
 			}, onProgress, onError );
 
@@ -62,13 +47,6 @@ THREE.LegacyGLTFLoader = ( function () {
 		setPath: function ( value ) {
 
 			this.path = value;
-
-		},
-
-		setResourcePath: function ( value ) {
-
-			this.resourcePath = value;
-			return this;
 
 		},
 
@@ -102,7 +80,7 @@ THREE.LegacyGLTFLoader = ( function () {
 
 				crossOrigin: this.crossOrigin,
 				manager: this.manager,
-				path: path || this.resourcePath || ''
+				path: path || this.path
 
 			} );
 

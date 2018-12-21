@@ -90,7 +90,9 @@ THREE.EquirectangularToCubeGenerator.prototype = {
 				\n\
 				void main() {\n\
 					vec2 uv = EquirectangularSampleUV(normalize(localPosition));\n\
-					gl_FragColor = texture2D(equirectangularMap, uv);\n\
+    			vec3 color = texture2D(equirectangularMap, uv).rgb;\n\
+    			\n\
+					gl_FragColor = vec4( color, 1.0 );\n\
 				}",
 
 			blending: THREE.NoBlending

@@ -777,9 +777,36 @@ Object.assign( THREE.VTKLoader.prototype, THREE.EventDispatcher.prototype, {
 
 					delete ele[ '#text' ];
 
-					if ( ele.attributes.type === 'Int64' ) {
+					// Get the content and optimize it
+					if ( ele.attributes.type === 'Float32' ) {
 
 						if ( ele.attributes.format === 'binary' ) {
+
+							if ( ! compressed ) {
+
+								txt = txt.filter( function ( el, idx ) {
+
+									if ( idx !== 0 ) return true;
+
+								} );
+
+							}
+
+						}
+
+					} else if ( ele.attributes.type === 'Int64' ) {
+
+						if ( ele.attributes.format === 'binary' ) {
+
+							if ( ! compressed ) {
+
+								txt = txt.filter( function ( el, idx ) {
+
+									if ( idx !== 0 ) return true;
+
+								} );
+
+							}
 
 							txt = txt.filter( function ( el, idx ) {
 

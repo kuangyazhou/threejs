@@ -756,138 +756,139 @@ THREE.SVGLoader.prototype = {
 
 		function parseTransformNode( node ) {
 
-			var transform = new THREE.Matrix3();
-			var currentTransform = tempTransform0;
-			var transformsTexts = node.getAttribute( 'transform' ).split( ' ' );
-			
-			for ( var tIndex = transformsTexts.length - 1; tIndex >= 0; tIndex-- ) {
+			var transformAttr = node.getAttribute( 'transform' );
+			var transform = null;
+			var openParPos = transformAttr.indexOf( "(" );
+			var closeParPos = transformAttr.indexOf( ")" );
 
-				var transformText = transformsTexts[ tIndex ];
-				var openParPos = transformText.indexOf( "(" );
-				var closeParPos = transformText.indexOf( ")" );
+			if ( openParPos > 0 && openParPos < closeParPos ) {
 
-				if ( openParPos > 0 && openParPos < closeParPos ) {
+				var transformType = transformAttr.substr( 0, openParPos );
 
-					var transformType = transformText.substr( 0, openParPos );
+				var array = parseFloats( transformAttr.substr( openParPos + 1, closeParPos - openParPos - 1 ) );
 
-					var array = parseFloats( transformText.substr( openParPos + 1, closeParPos - openParPos - 1 ) );
-					
-					currentTransform.identity();
+				switch ( transformType ) {
 
-					switch ( transformType ) {
+					case "translate":
 
-						case "translate":
+						if ( array.length >= 1 ) {
 
-							if ( array.length >= 1 ) {
+							transform = new THREE.Matrix3();
 
-								var tx = array[ 0 ];
-								var ty = tx;
+							var tx = array[ 0 ];
+							var ty = tx;
 
-								if ( array.length >= 2 ) {
+							if ( array.length >= 2 ) {
 
-									ty = array[ 1 ];
-
-								}
-
-								currentTransform.translate( tx, ty );
+								ty = array[ 1 ];
 
 							}
 
-							break;
+							transform.translate( tx, ty );
 
-						case "rotate":
+						}
 
-							if ( array.length >= 1 ) {
+						break;
 
-								var angle = 0;
-								var cx = 0;
-								var cy = 0;
+					case "rotate":
 
-								// Angle
-								angle = - array[ 0 ] * Math.PI / 180;
+						if ( array.length >= 1 ) {
 
-								if ( array.length >= 3 ) {
+							var angle = 0;
+							var cx = 0;
+							var cy = 0;
 
-									// Center x, y
-									cx = array[ 1 ];
-									cy = array[ 2 ];
+							transform = new THREE.Matrix3();
 
-								}
+							// Angle
+							angle = - array[ 0 ] * Math.PI / 180;
 
-								// Rotate around center (cx, cy)
-								tempTransform1.identity().translate( -cx, -cy );
-								tempTransform2.identity().rotate( angle );
-								tempTransform3.multiplyMatrices( tempTransform2, tempTransform1 );
-								tempTransform1.identity().translate( cx, cy );
-								currentTransform.multiplyMatrices( tempTransform1, tempTransform3 );
+							if ( array.length >= 3 ) {
+
+								// Center x, y
+								cx = array[ 1 ];
+								cy = array[ 2 ];
 
 							}
 
-							break;
+							// Rotate around center (cx, cy)
+							tempTransform1.identity().translate( -cx, -cy );
+							tempTransform2.identity().rotate( angle );
+							tempTransform3.multiplyMatrices( tempTransform2, tempTransform1 );
+							tempTransform1.identity().translate( cx, cy );
+							transform.multiplyMatrices( tempTransform1, tempTransform3 );
 
-						case "scale":
+						}
 
-							if ( array.length >= 1 ) {
+						break;
 
-								var scaleX = array[ 0 ];
-								var scaleY = scaleX;
+					case "scale":
 
-								if ( array.length >= 2 ) {
-									scaleY = array[ 1 ];
-								}
+						if ( array.length >= 1 ) {
 
-								currentTransform.scale( scaleX, scaleY );
+							transform = new THREE.Matrix3();
 
+							var scaleX = array[ 0 ];
+							var scaleY = scaleX;
+
+							if ( array.length >= 2 ) {
+								scaleY = array[ 1 ];
 							}
 
-							break;
+							transform.scale( scaleX, scaleY );
 
-						case "skewX":
+						}
 
-							if ( array.length === 1 ) {
+						break;
 
-								currentTransform.set(
-									1, Math.tan( array[ 0 ] * Math.PI / 180 ), 0,
-									0, 1, 0,
-									0, 0, 1
-								);
+					case "skewX":
 
-							}
+						if ( array.length === 1 ) {
 
-							break;
+							transform = new THREE.Matrix3();
 
-						case "skewY":
+							transform.set(
+								1, Math.tan( array[ 0 ] * Math.PI / 180 ), 0,
+								0, 1, 0,
+								0, 0, 1
+							);
 
-							if ( array.length === 1 ) {
+						}
 
-								currentTransform.set(
-									1, 0, 0,
-									Math.tan( array[ 0 ] * Math.PI / 180 ), 1, 0,
-									0, 0, 1
-								);
+						break;
 
-							}
+					case "skewY":
 
-							break;
+						if ( array.length === 1 ) {
 
-						case "matrix":
+							transform = new THREE.Matrix3();
 
-							if ( array.length === 6 ) {
+							transform.set(
+								1, 0, 0,
+								Math.tan( array[ 0 ] * Math.PI / 180 ), 1, 0,
+								0, 0, 1
+							);
 
-								currentTransform.set(
-									array[ 0 ], array[ 2 ], array[ 4 ],
-									array[ 1 ], array[ 3 ], array[ 5 ],
-									0, 0, 1
-								);
+						}
 
-							}
+						break;
 
-							break;
-					}
+					case "matrix":
 
+						if ( array.length === 6 ) {
+
+							transform = new THREE.Matrix3();
+
+							transform.set(
+								array[ 0 ], array[ 2 ], array[ 4 ],
+								array[ 1 ], array[ 3 ], array[ 5 ],
+								0, 0, 1
+							);
+
+						}
+
+						break;
 				}
-
-				transform.premultiply( currentTransform );
 
 			}
 
@@ -983,7 +984,6 @@ THREE.SVGLoader.prototype = {
 
 		var transformStack = [];
 
-		var tempTransform0 = new THREE.Matrix3();
 		var tempTransform1 = new THREE.Matrix3();
 		var tempTransform2 = new THREE.Matrix3();
 		var tempTransform3 = new THREE.Matrix3();

@@ -4,7 +4,7 @@
  * @author Simone Manini / http://daron1337.github.io
  * @author Luca Antiga 	/ http://lantiga.github.io
  */
-import THREE from "three.js";
+
 THREE.TrackballControls = function ( object, domElement ) {
 
 	var _this = this;

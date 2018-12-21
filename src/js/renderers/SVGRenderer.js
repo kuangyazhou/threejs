@@ -403,7 +403,7 @@ THREE.SVGRenderer = function () {
 
 			_color.copy( material.color );
 
-			if ( material.vertexColors === THREE.FaceColors || material.vertexColors === THREE.VertexColors ) {
+			if ( material.vertexColors === THREE.FaceColors ) {
 
 				_color.multiply( element.color );
 
@@ -413,7 +413,7 @@ THREE.SVGRenderer = function () {
 
 			_diffuseColor.copy( material.color );
 
-			if ( material.vertexColors === THREE.FaceColors || material.vertexColors === THREE.VertexColors ) {
+			if ( material.vertexColors === THREE.FaceColors ) {
 
 				_diffuseColor.multiply( element.color );
 

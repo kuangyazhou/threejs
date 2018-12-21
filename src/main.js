@@ -3,6 +3,17 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 
+// const THREE = require("three");
+// Vue.use(THREE);
+// require('../src/js/libs/dat.gui.min.js');
+// import "@/js/libs/dat.gui.min.js";
+// import "@/js/libs/stats.min.js";
+// import "@/js/controls/TrackballControls.js";
+// import "@/js/controls/FlyControls.js";
+// import "@/js/loaders/OBJLoader.js";
+// import "@/js/loaders/MTLLoader.js";
+// import "@/js/controls/OrbitControls.js";
+
 Vue.config.productionTip = false;
 
 Vue.prototype.$randomColor = function() {

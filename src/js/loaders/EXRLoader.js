@@ -929,12 +929,7 @@ THREE.EXRLoader.prototype._parser = function ( buffer ) {
 			'RLE_COMPRESSION',
 			'ZIPS_COMPRESSION',
 			'ZIP_COMPRESSION',
-			'PIZ_COMPRESSION',
-			'PXR24_COMPRESSION',
-			'B44_COMPRESSION',
-			'B44A_COMPRESSION',
-			'DWAA_COMPRESSION',
-			'DWAB_COMPRESSION'
+			'PIZ_COMPRESSION'
 		];
 
 		var compression = parseUint8( dataView, offset );
@@ -1114,7 +1109,7 @@ THREE.EXRLoader.prototype._parser = function ( buffer ) {
 
 				} else {
 
-					throw 'EXRLoader._parser: unsupported pixelType ' + EXRHeader.channels[ channelID ].pixelType + '. Only pixelType is 1 (HALF) is supported.';
+					throw 'Only supported pixel format is HALF';
 
 				}
 
@@ -1156,7 +1151,7 @@ THREE.EXRLoader.prototype._parser = function ( buffer ) {
 
 					} else {
 
-						throw 'EXRLoader._parser: unsupported pixelType ' + EXRHeader.channels[ channelID ].pixelType + '. Only pixelType is 1 (HALF) is supported.';
+						throw 'Only supported pixel format is HALF';
 
 					}
 
@@ -1168,7 +1163,7 @@ THREE.EXRLoader.prototype._parser = function ( buffer ) {
 
 	} else {
 
-		throw 'EXRLoader._parser: ' + EXRHeader.compression + ' is unsupported';
+		throw 'Cannot decompress unsupported compression';
 
 	}
 
