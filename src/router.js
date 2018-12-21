@@ -121,6 +121,11 @@ export default new Router({
       path: "/chair",
       name: "chair",
       component: () => import("./views/chair.vue")
+    },
+    {
+      path: "/mtl",
+      name: "mtl",
+      component: () => import("./views/mtl.vue")
     }
   ]
 });
