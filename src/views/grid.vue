@@ -26,7 +26,8 @@ export default {
       this.renderer = new THREE.WebGLRenderer({ antialias: true });
       this.renderer.setSize(this.width, this.height);
       // document.getElementById("canvas").appendChild(renderer.domElement);
-      document.body.appendChild(this.renderer.domElement);
+      console.log(document.querySelector('canvas'));
+      //  document.querySelector('#canvas').appendChild(this.renderer.domElement);
       this.renderer.setClearColor(0xffffff, 1.0);
     },
     initCamera() {

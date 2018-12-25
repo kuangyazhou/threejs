@@ -36,7 +36,7 @@ export default {
         45,
         window.innerWidth / window.innerHeight,
         1,
-        10000
+        1000
       );
       this.camera.position.set(5, 5, 5);
       this.camera.lookAt(new THREE.Vector3(0, 0, 0));
