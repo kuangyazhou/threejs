@@ -10,7 +10,8 @@ export default {
       camera: null,
       controls: null,
       group: null,
-      loaded: false
+      loaded: false,
+      animation: null
     };
   },
   created() {
@@ -36,7 +37,7 @@ export default {
         0.1,
         1000
       );
-      this.camera.position.set(60, 60, 60);
+      this.camera.position.set(60, 30, 60);
       this.camera.lookAt(new THREE.Vector3(0, 0, 0));
 
       //灯光
@@ -115,10 +116,46 @@ export default {
         mesh.position.set(-50, 0, 0);
         this.scene.add(mesh);
       });
+
+      let awdLoader = new THREE.AWDLoader();
+      awdLoader.load("/lib/assets/models/awd/PolarBear.awd", geom => {
+        geom.traverse(item => {
+          if (item instanceof THREE.Mesh) {
+            item.material = new THREE.MeshLambertMaterial({ color: 0x00ffff });
+            // console.log(item.geometry);
+          }
+        });
+        geom.rotation.y = Math.PI;
+        geom.scale.set(0.1, 0.1, 0.1);
+        geom.position.x = 50;
+        this.scene.add(geom);
+      });
+
+      let assimLoader = new THREE.AssimpLoader();
+      assimLoader.load(
+        "/lib/models/assimp/octaminator/Octaminator.assimp",
+        geom => {
+          let obj = geom.object;
+          obj.position.z = -10;
+          obj.rotation.y = Math.PI;
+          obj.scale.set(0.1, 0.1, 0.1);
+          this.scene.add(obj);
+          // console.log(geom.animation)
+          obj.position.set(30, 20, 0);
+          this.animation = geom.animation;
+        }
+      );
+
+      let vrmlLoader = new THREE.VRMLLoader();
+      vrmlLoader.load("/lib/models/vrml/house.wrl", geom => {
+        geom.position.set(-30, 0, 0);
+        this.scene.add(geom);
+      });
     },
     render() {
       let step = 0.1;
       this.loaded ? (this.group.rotation.y += step) : "";
+      this.animation ? this.animation.setTime(performance.now() / 1000) : "";
       this.controls.update();
       requestAnimationFrame(this.render);
       this.renderer.render(this.scene, this.camera);
