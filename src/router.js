@@ -126,6 +126,11 @@ export default new Router({
       path: "/mtl",
       name: "mtl",
       component: () => import("./views/mtl.vue")
+    },
+    {
+      path: "/dae",
+      name: "dae",
+      component: () => import("./views/dae.vue")
     }
   ]
 });

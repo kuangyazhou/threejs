@@ -1,4 +1,3 @@
-const webpack = require("webpack");
 module.exports = {
   lintOnSave: true,
   devServer: {
@@ -10,11 +9,12 @@ module.exports = {
         //   "": ""
         // }
       }
-    },
-    // plugins: [
-    //   new webpack.ProvidePlugin({
-    //     THREE: "three"
-    //   })
-    // ]
-  }
+    }
+  },
+  // rules: [
+  //   {
+  //     test: require.resolve("three/examples/js/controls/OrbitControls"),
+  //     use: "imports-loader?THREE=three"
+  //   }
+  // ]
 };
