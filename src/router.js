@@ -131,6 +131,21 @@ export default new Router({
       path: "/dae",
       name: "dae",
       component: () => import("./views/dae.vue")
+    },
+    {
+      path: "/tween",
+      name: "tween",
+      component: () => import("./views/tween.vue")
+    },
+    // {
+    //   path: "/first",
+    //   name: "first",
+    //   component: () => import("./views/firstPerson.vue")
+    // }
+    {
+      path: "/test",
+      name: "test",
+      component: () => import("./views/element.vue")
     }
   ]
 });
