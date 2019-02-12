@@ -146,6 +146,11 @@ export default new Router({
       path: "/test",
       name: "test",
       component: () => import("./views/element.vue")
+    },
+    {
+      path: "/fpx",
+      name: "fpx",
+      component: () => import("./views/fpx.vue")
     }
   ]
 });
