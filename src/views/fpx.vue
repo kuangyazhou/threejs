@@ -15,7 +15,7 @@ export default {
     };
   },
   created() {
-    this.draw();
+    // this.draw();
   },
   methods: {
     draw() {
@@ -88,6 +88,7 @@ export default {
       this.controls.enablePan = true;
     },
     initModel() {
+      // fpx模型
       let loader = new THREE.FBXLoader();
       let meshHelper = null;
       loader.load("/lib/models/fbx/Samba Dancing.fbx", mesh => {
@@ -101,11 +102,37 @@ export default {
           }
         });
 
-        this.mixer = mesh.mixer = new THREE.AnimationMixer(mesh);
-        this.action = this.mixer.clipAction(mesh.animations[0]);
-        this.action.play();
-        this.scene.add(mesh);
+        // this.mixer = mesh.mixer = new THREE.AnimationMixer(mesh);
+        // mesh.mixer = new THREE.AnimationMixer(mesh);
+        // this.mixer = mesh.mixer;
+        // this.action = this.mixer.clipAction(mesh.animations[0]);
+        // this.action.play();
+        // this.scene.add(mesh);
       });
+
+      //dae模型
+      let daeLoader = new THREE.ColladaLoader();
+      daeLoader.load(
+        "/lib/models/collada/stormtrooper/stormtrooper.dae",
+        mesh => {
+          console.log(mesh);
+          let obj = mesh.scene;
+          let meshHelper = new THREE.SkeletonHelper(obj);
+          this.scene.add(meshHelper);
+          obj.traverse(child => {
+            if (child.isMesh) {
+              child.castShadow = true;
+              child.receiveShadow = true;
+            }
+          });
+
+          this.mixer = obj.mixer = new THREE.AnimationMixer(obj);
+          this.action = this.mixer.clipAction(mesh.animations[0]);
+          this.action.play();
+          obj.rotation.z += Math.PI;
+          this.scene.add(obj);
+        }
+      );
     },
     initGUI() {
       let gui = {
@@ -121,9 +148,10 @@ export default {
       });
     },
     render() {
-      let time = new THREE.Clock().getDelta();
+      let clock = new THREE.Clock();
+      let time = clock.getDelta();
       if (this.mixer) {
-        this.mixer.update();
+        this.mixer.update(time);
       }
       this.controls.update();
       requestAnimationFrame(this.render);
