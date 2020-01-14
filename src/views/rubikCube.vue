@@ -24,7 +24,7 @@ export default {
         };
     },
     created() {
-        // this.draw();
+        this.draw();
     },
     methods: {
         init() {
@@ -34,15 +34,15 @@ export default {
             this.renderer.setSize(this.width, this.height);
             document.body.appendChild(this.renderer.domElement);
             this.renderer.setClearColor(0xffffff, 1.0);
-            document.addEventListener("mousedown", onDocumentMouseDown, false);
+            document.addEventListener("mousedown", this.onDocumentMouseDown, false);
             document.addEventListener(
                 "touchstart",
-                onDocumentTouchStart,
+                this.onDocumentTouchStart,
                 false
             );
-            document.addEventListener("mouseup", onDocumentMouseUp, false);
-            document.addEventListener("touchend", onDocumentTouchEnd, false);
-            window.addEventListener("resize", onWindowResize, false);
+            document.addEventListener("mouseup", this.onDocumentMouseUp, false);
+            document.addEventListener("touchend", this.onDocumentTouchEnd, false);
+            window.addEventListener("resize", this.onWindowResize, false);
         },
         initCamera() {
             this.camera = new THREE.PerspectiveCamera(
@@ -51,7 +51,7 @@ export default {
                 1,
                 1000
             );
-            camera.position.set(10, 6, 10);
+            this.camera.position.set(10, 6, 10);
             this.scene.add(this.camera);
             // this.camera.position.x = 10;
             // this.camera.position.y = 10;
@@ -149,7 +149,7 @@ export default {
             let geometry = new THREE.CubeGeometry(2, 2, 2, 1, 1, 1);
 
             this.meshes.push(
-                cubes(
+                this.cubes(
                     2,
                     2,
                     2,
@@ -163,7 +163,7 @@ export default {
                 )
             );
             this.meshes.push(
-                cubes(
+                this.cubes(
                     2,
                     0,
                     2,
@@ -177,7 +177,7 @@ export default {
                 )
             );
             this.meshes.push(
-                cubes(
+                this.cubes(
                     2,
                     -2,
                     2,
@@ -191,7 +191,7 @@ export default {
                 )
             );
             this.meshes.push(
-                cubes(
+                this.cubes(
                     0,
                     2,
                     2,
@@ -205,7 +205,7 @@ export default {
                 )
             );
             this.meshes.push(
-                cubes(
+                this.cubes(
                     0,
                     0,
                     2,
@@ -219,7 +219,7 @@ export default {
                 )
             );
             this.meshes.push(
-                cubes(
+                this.cubes(
                     0,
                     -2,
                     2,
@@ -233,7 +233,7 @@ export default {
                 )
             );
             this.meshes.push(
-                cubes(
+                this.cubes(
                     -2,
                     2,
                     2,
@@ -247,7 +247,7 @@ export default {
                 )
             );
             this.meshes.push(
-                cubes(
+                this.cubes(
                     -2,
                     0,
                     2,
@@ -261,7 +261,7 @@ export default {
                 )
             );
             this.meshes.push(
-                cubes(
+                this.cubes(
                     -2,
                     -2,
                     2,
@@ -276,7 +276,7 @@ export default {
             );
 
             this.meshes.push(
-                cubes(
+                this.cubes(
                     2,
                     2,
                     0,
@@ -290,7 +290,7 @@ export default {
                 )
             );
             this.meshes.push(
-                cubes(
+                this.cubes(
                     2,
                     0,
                     0,
@@ -304,7 +304,7 @@ export default {
                 )
             );
             this.meshes.push(
-                cubes(
+                this.cubes(
                     2,
                     -2,
                     0,
@@ -318,7 +318,7 @@ export default {
                 )
             );
             this.meshes.push(
-                cubes(
+                this.cubes(
                     0,
                     2,
                     0,
@@ -332,7 +332,7 @@ export default {
                 )
             );
             this.meshes.push(
-                cubes(
+                this.cubes(
                     0,
                     0,
                     0,
@@ -346,7 +346,7 @@ export default {
                 )
             );
             this.meshes.push(
-                cubes(
+                this.cubes(
                     0,
                     -2,
                     0,
@@ -360,7 +360,7 @@ export default {
                 )
             );
             this.meshes.push(
-                cubes(
+                this.cubes(
                     -2,
                     2,
                     0,
@@ -374,7 +374,7 @@ export default {
                 )
             );
             this.meshes.push(
-                cubes(
+                this.cubes(
                     -2,
                     0,
                     0,
@@ -388,7 +388,7 @@ export default {
                 )
             );
             this.meshes.push(
-                cubes(
+                this.cubes(
                     -2,
                     -2,
                     0,
@@ -403,7 +403,7 @@ export default {
             );
 
             this.meshes.push(
-                cubes(
+                this.cubes(
                     2,
                     2,
                     -2,
@@ -417,7 +417,7 @@ export default {
                 )
             );
             this.meshes.push(
-                cubes(
+                this.cubes(
                     2,
                     0,
                     -2,
@@ -431,7 +431,7 @@ export default {
                 )
             );
             this.meshes.push(
-                cubes(
+                this.cubes(
                     2,
                     -2,
                     -2,
@@ -445,7 +445,7 @@ export default {
                 )
             );
             this.meshes.push(
-                cubes(
+                this.cubes(
                     0,
                     2,
                     -2,
@@ -459,7 +459,7 @@ export default {
                 )
             );
             this.meshes.push(
-                cubes(
+                this.cubes(
                     0,
                     0,
                     -2,
@@ -473,7 +473,7 @@ export default {
                 )
             );
             this.meshes.push(
-                cubes(
+                this.cubes(
                     0,
                     -2,
                     -2,
@@ -487,7 +487,7 @@ export default {
                 )
             );
             this.meshes.push(
-                cubes(
+                this.cubes(
                     -2,
                     2,
                     -2,
@@ -501,7 +501,7 @@ export default {
                 )
             );
             this.meshes.push(
-                cubes(
+                this.cubes(
                     -2,
                     0,
                     -2,
@@ -515,7 +515,7 @@ export default {
                 )
             );
             this.meshes.push(
-                cubes(
+                this.cubes(
                     -2,
                     -2,
                     -2,
@@ -529,8 +529,8 @@ export default {
                 )
             );
 
-            this.meshes.forEach(item => {
-                item.name = i;
+            this.meshes.forEach((item,index) => {
+                item.name = index;
                 this.scene.add(item);
             });
         },
@@ -591,12 +591,12 @@ export default {
 
             var materials = [];
             var myFaces = [];
-            myFaces.push(faces(side1Color));
-            myFaces.push(faces(side2Color));
-            myFaces.push(faces(side3Color));
-            myFaces.push(faces(side4Color));
-            myFaces.push(faces(side5Color));
-            myFaces.push(faces(side6Color));
+            myFaces.push(this.faces(side1Color));
+            myFaces.push(this.faces(side2Color));
+            myFaces.push(this.faces(side3Color));
+            myFaces.push(this.faces(side4Color));
+            myFaces.push(this.faces(side5Color));
+            myFaces.push(this.faces(side6Color));
             for (var i = 0; i < 6; i++) {
                 var texture = new THREE.Texture(myFaces[i]);
                 texture.needsUpdate = true;
@@ -606,7 +606,7 @@ export default {
                     })
                 );
             }
-            mesh = new THREE.Mesh(
+           let mesh = new THREE.Mesh(
                 geometry,
                 new THREE.MeshFaceMaterial(materials)
             );
