@@ -10,6 +10,7 @@ const Yellow = "rgba(255,255,0,1)";
 let dx, dy, dz;
 let rotateNormal;
 let rotateR;
+let rotateStart=false;
 export default {
     data() {
         return {
@@ -20,7 +21,9 @@ export default {
             camera: null,
             stats: null,
             meshes: [],
-            raycaster: null
+            raycaster: null,
+            mouse:{},
+            selectedfirst:''
         };
     },
     created() {
@@ -545,7 +548,7 @@ export default {
             );
             control.target = new THREE.Vector3(0, 0, 0);
             this.raycaster = new THREE.Raycaster();
-            let mouse = new THREE.Vector2();
+            this.mouse = new THREE.Vector2();
         },
         draw() {
             this.init();
@@ -554,6 +557,7 @@ export default {
             this.initLight();
             this.initModel();
             this.initStats();
+            this.initControl();
             this.animate();
             // this.renderer.render(this.scene, this.camera);
         },
@@ -608,7 +612,8 @@ export default {
             }
            let mesh = new THREE.Mesh(
                 geometry,
-                new THREE.MeshFaceMaterial(materials)
+                // new THREE.MeshFaceMaterial(materials)
+                materials
             );
             mesh.position.x = x;
             mesh.position.y = y;
@@ -631,12 +636,12 @@ export default {
                 -(event.clientY / this.renderer.domElement.clientHeight) * 2 +
                 1;
 
-            this.raycaster.setFromCamera(mouse, camera);
+            this.raycaster.setFromCamera(this.mouse, this.camera);
 
-            const intersects = this.raycaster.intersectObjects(scene.children);
+            const intersects = this.raycaster.intersectObjects(this.scene.children);
             if (intersects.length > 0) {
                 //console.log(intersects);
-                selectedfirst = intersects[1].object;
+                this.selectedfirst = intersects[1].object;
                 facefirst = intersects[0].object;
                 //console.log(facefirst.normal);
                 transform = true;
@@ -647,17 +652,17 @@ export default {
             event.preventDefault();
 
             this.mouse.x =
-                (event.clientX / renderer.domElement.clientWidth) * 2 - 1;
+                (event.clientX / this.renderer.domElement.clientWidth) * 2 - 1;
             this.mouse.y =
-                -(event.clientY / renderer.domElement.clientHeight) * 2 + 1;
+                -(event.clientY / this.renderer.domElement.clientHeight) * 2 + 1;
 
-            this.raycaster.setFromCamera(mouse, camera);
-            const intersects = raycaster.intersectObjects(scene.children);
+            this.raycaster.setFromCamera(this.mouse, this.camera);
+            const intersects = this.raycaster.intersectObjects(this.scene.children);
             if (transform) {
                 if (intersects.length > 0) {
                     selectedlast = intersects[1].object;
                     facelast = intersects[0].object;
-                    if (selectedlast != selectedfirst) {
+                    if (selectedlast != this.selectedfirst) {
                         result = faceselection(
                             selectedfirst,
                             facefirst,
