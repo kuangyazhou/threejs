@@ -181,6 +181,12 @@ export default new Router({
             name: 'cube',
             component: () =>
                 import ('./views/rubikCube.vue')
+        },
+        {
+            path: '/lens',
+            name: 'lens',
+            component: () =>
+                import ('./views/lens.vue')
         }
     ]
 });
