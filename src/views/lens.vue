@@ -20,6 +20,7 @@ export default {
   methods: {
     draw() {
       this.init();
+      this.initModel();
       this.render();
     },
     render() {
@@ -27,6 +28,60 @@ export default {
       this.controls.update();
       requestAnimationFrame(this.render);
     },
+    initModel() {
+      this.generatePoints(120, 2, 2 * Math.PI);
+    },
+    generatePoints(segments, phiStart, phiLength) {
+      let points = [];
+      const height = 5;
+      let count = 40;
+      for (let i = 0; i < count; i++) {
+        points.push(
+          new THREE.Vector3(
+            (Math.sin(i * 0.2) + Math.cos(i * 0.3)) * height + 12,
+            i - count + count / 2,
+            0
+          )
+        );
+      }
+      let spGroup = new THREE.Object3D();
+      let material = new THREE.MeshBasicMaterial({
+        color: 0xff0000,
+        transparent: false,
+      }); //声明顶点球体使用的纹理
+      points.forEach((item) => {
+        let spGeom = new THREE.SphereGeometry(0.2); //实例化球形几何体
+        let spMesh = new THREE.Mesh(spGeom, material); //生成网格
+        spMesh.position.copy(item); //将当前顶点的坐标位置赋值给当前球体
+        spGroup.add(spMesh); //添加到对象当中
+      });
+      this.scene.add(spGroup);
+
+      // 实例化一个THREE.LatheGeometry，并设置相关的信息
+      let latheGeometry = new THREE.LatheGeometry(
+        points,
+        segments,
+        phiStart,
+        phiLength
+      );
+      let latheMesh = this.createMesh(latheGeometry);
+      this.scene.add(latheMesh);
+    },
+
+    createMesh(geom) {
+      //  实例化一个法向量的材质
+      let meshMaterial = new THREE.MeshNormalMaterial();
+      meshMaterial.side = THREE.DoubleSide; //设置两面都可见
+      let wireFrameMat = new THREE.MeshBasicMaterial();
+      wireFrameMat.wireframe = true; //把材质渲染成线框
+      // 将两种材质都赋给几何体
+      let mesh = THREE.SceneUtils.createMultiMaterialObject(geom, [
+        meshMaterial,
+        wireFrameMat,
+      ]);
+      return mesh;
+    },
+
     init() {
       // render
       this.renderer = new THREE.WebGLRenderer({
@@ -61,6 +116,10 @@ export default {
       this.pointLight.position.set(400, 600, -100);
       this.pointLight.castShadow = true;
       this.scene.add(this.pointLight);
+
+      let directionalLight = new THREE.DirectionalLight(0xffffff);
+      directionalLight.position.set(1, 1, 1);
+      this.scene.add(directionalLight);
 
       // 添加 lens flares
       let textureLoader = new THREE.TextureLoader();
@@ -103,7 +162,7 @@ export default {
       let sphereGeometry = new THREE.SphereGeometry(10, 30, 30);
       let sphereMaterial = new THREE.MeshStandardMaterial({ color: 0xff00ff });
       let sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
-      sphere.position.set(-20, 20, 0);
+      sphere.position.set(50, 0,0);
 
       sphere.castShadow = true;
 
@@ -137,24 +196,27 @@ export default {
 
       this.scene.add(plane);
 
-      this.controls = new THREE.OrbitControls( this.camera, this.renderer.domElement );
+      this.controls = new THREE.OrbitControls(
+        this.camera,
+        this.renderer.domElement
+      );
       // 如果使用animate方法时，将此函数删除
-        //controls.addEventListener( 'change', render );
-        // 使动画循环使用时阻尼或自转 意思是否有惯性
-        this.controls.enableDamping = true;
-        //动态阻尼系数 就是鼠标拖拽旋转灵敏度
-        //controls.dampingFactor = 0.25;
-        //是否可以缩放
-        this.controls.enableZoom = true;
-        //是否自动旋转
-        this.controls.autoRotate = true;
-        this.controls.autoRotateSpeed = 0.05;
-        //设置相机距离原点的最远距离
-        this.controls.minDistance  = 1;
-        //设置相机距离原点的最远距离
-        this.controls.maxDistance  = 200;
-        //是否开启右键拖拽
-        this.controls.enablePan = true;
+      //controls.addEventListener( 'change', render );
+      // 使动画循环使用时阻尼或自转 意思是否有惯性
+      this.controls.enableDamping = true;
+      //动态阻尼系数 就是鼠标拖拽旋转灵敏度
+      //controls.dampingFactor = 0.25;
+      //是否可以缩放
+      this.controls.enableZoom = true;
+      //是否自动旋转
+      this.controls.autoRotate = true;
+      this.controls.autoRotateSpeed = 0.05;
+      //设置相机距离原点的最远距离
+      this.controls.minDistance = 1;
+      //设置相机距离原点的最远距离
+      this.controls.maxDistance = 200;
+      //是否开启右键拖拽
+      this.controls.enablePan = true;
     },
   },
 };
